@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fogadoora
+namespace Fogadoora.Models
 {
-    internal class Program
+    internal class Bejelentkezo
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }
