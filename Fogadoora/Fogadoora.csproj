@@ -43,18 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BejelentkezoController.cs" />
+    <Compile Include="Controllers\FogadooraController.cs" />
     <Compile Include="Models\Bejelentkezo.cs" />
     <Compile Include="Models\Fogadoora.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\BejelentkezoView.cs" />
+    <Compile Include="Views\FogadooraView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Database\fogadoora.sql" />
   </ItemGroup>
