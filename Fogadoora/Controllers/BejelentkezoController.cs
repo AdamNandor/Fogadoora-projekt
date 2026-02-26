@@ -71,5 +71,20 @@ namespace Fogadoora.Controllers
             return valasz;
 
         }
+
+        public bool DelBej(int id)
+        {
+            MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
+            con.Open();
+            string insertSql = @"DELETE FROM bejelentkezo WHERE Id = @Id";
+            MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
+            insertcmd.Parameters.AddWithValue("@Id", id);
+
+
+            int sorok = insertcmd.ExecuteNonQuery();
+            bool valasz = sorok > 0 ? true : false;
+            return valasz;
+
+        }
     }
 }
