@@ -42,7 +42,9 @@ namespace Fogadoora.Controllers
         /// <summary>
         /// kiírja a megadott új bejelentkezőt az adatbázisba, és visszaadja, hogy sikerült-e a művelet
         /// </summary>
-        /// <param name="bejelentkezo"></param>
+        /// <param name="nev"></param>
+        /// <param name="tel"></param>
+        /// <param name="email"></param>
         /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
         public bool NewBej(string nev, string tel, string email)
         {
