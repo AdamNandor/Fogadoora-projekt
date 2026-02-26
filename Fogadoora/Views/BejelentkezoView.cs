@@ -8,5 +8,6 @@ namespace Fogadoora.Views
 {
     internal class BejelentkezoView
     {
+        
     }
 }

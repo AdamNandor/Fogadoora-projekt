@@ -44,16 +44,16 @@ namespace Fogadoora.Controllers
         /// </summary>
         /// <param name="bejelentkezo"></param>
         /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
-        public bool NewBej(Bejelentkezo bejelentkezo)
+        public bool NewBej(string nev, string tel, string email)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
             con.Open();
-            string insertSql = @"INSERT INTO bejelentkezo VALUES (@Id,@Nev,@Tel,@Email)";
+            string insertSql = @"INSERT INTO bejelentkezo VALUES (@Id,@Nev,@Email,@Tel)";
             MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
             insertcmd.Parameters.AddWithValue("@Id", null);
-            insertcmd.Parameters.AddWithValue("@Nev", bejelentkezo.Nev);
-            insertcmd.Parameters.AddWithValue("@Tel", bejelentkezo.Tel);
-            insertcmd.Parameters.AddWithValue("@Email", bejelentkezo.Email);
+            insertcmd.Parameters.AddWithValue("@Nev", nev);
+            insertcmd.Parameters.AddWithValue("@Tel", tel);
+            insertcmd.Parameters.AddWithValue("@Email", email);
 
 
 

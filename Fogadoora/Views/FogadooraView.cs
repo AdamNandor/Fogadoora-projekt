@@ -8,5 +8,9 @@ namespace Fogadoora.Views
 {
     internal class FogadooraView
     {
+        public void FogadooraKiiratas()
+        {
+
+        }
     }
 }
