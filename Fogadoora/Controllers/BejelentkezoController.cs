@@ -35,6 +35,22 @@ namespace Fogadoora.Controllers
             }
         }
 
+        public bool NewBej(Bejelentkezo bejelentkezo)
+        {
+            MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
+            con.Open();
+            string insertSql = @"INSERT INTO bejelentkezo VALUES (@Id,@Nev,@Tel,@Email)";
+            MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
+            insertcmd.Parameters.AddWithValue("@Id", null);
+            insertcmd.Parameters.AddWithValue("@Nev", bejelentkezo.Nev);
+            insertcmd.Parameters.AddWithValue("@Tel", bejelentkezo.Tel);
+            insertcmd.Parameters.AddWithValue("@Email", bejelentkezo.Email);
 
+
+
+            int sorok = insertcmd.ExecuteNonQuery();
+            bool valasz = sorok > 0 ? true : false;
+            return valasz;
+        }
     }
 }
