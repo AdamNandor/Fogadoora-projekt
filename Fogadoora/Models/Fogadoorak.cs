@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Fogadoora.Models
 {
-    internal class Fogadoora
+    internal class Fogadoorak
     {
-        public Fogadoora(int id, string hely, DateTime kezdet, int hossz)
+        public Fogadoorak(int id, string hely, DateTime kezdet, int hossz)
         {
             Id = id;
             Hely = hely;
@@ -16,7 +16,7 @@ namespace Fogadoora.Models
             Hossz = hossz;
         }
 
-        public Fogadoora() { }
+        public Fogadoorak() { }
 
         public int Id { get; set; }
         public string Hely { get; set; }
