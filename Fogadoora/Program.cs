@@ -115,16 +115,16 @@ namespace Fogadoora
                 switch (valasztas)
                 {
                     case "1":
-                        // Fogadóóra hozzáadása
+                        AddFog();
                         break;
                     case "2":
                         UpdFog();
                         break;
                     case "3":
-                        // Fogadóóra megtekintése
+                        ShowFog();
                         break;
                     case "4":
-                        // Fogadóóra törlése
+                        DelFog();
                         break;
                     case "5":
                         Beallitasok(felh);
@@ -135,17 +135,41 @@ namespace Fogadoora
                         Console.ReadLine();
                         return;
                     default:
-                        Console.WriteLine("Érvénytelen menüpont. Kérjük, próbálja újra.");
+                        UIBeallitasok.WriteError("Érvénytelen menüpont. Kérjük, próbálja újra.");
                         break;
                 }
             }
         }
 
+        static void AddFog()
+        {
+            Console.Clear();
+            Console.WriteLine("=== FOGADÓÓRA HOZZÁADÁSA ===");
+            Console.Write("Hely: ");
+            string hely = Console.ReadLine();
+            Console.Write("Kezdés (éééé-hh-nn óó:pp): ");
+            DateTime kezd = DateTime.Parse(Console.ReadLine());
+            Console.Write("Hossz (perc): ");
+            int hossz = int.Parse(Console.ReadLine());
+            bool addFog = new FogadooraController().NewFog(hely, kezd, hossz);
+            if (addFog)
+            {
+                Console.WriteLine("Sikeres hozzáadás!");
+            }
+            else
+            {
+                UIBeallitasok.WriteError("Hiba történt a hozzáadás során.");
+            }
+            Console.ReadLine();
+        }
+
         static void UpdFog()
         {
             Console.Clear();
+
             //táblázat kiírása
             List<Fogadoorak> orak = new FogadooraController().GetFogList();
+            new FogadooraView().KapcsolatokKiir(orak);
             Console.WriteLine("Enterrel jelenlegi adat megtartása\n");
 
             Console.Write("Adja meg a módosítandó fogadóóra ID-jét: ");
@@ -158,12 +182,12 @@ namespace Fogadoora
             //if (string.IsNullOrWhiteSpace(hely))
             //    hely = "";
 
-            Console.WriteLine($"Új E-mail: (Jel.: )");
+            Console.WriteLine($"Új kezdés: (Jel.: )");
             DateTime kezd = DateTime.Parse(Console.ReadLine());
             //if (string.IsNullOrWhiteSpace(kezd))
             //    kezd = "";
 
-            Console.WriteLine($"Új név: (Jel.: )");
+            Console.WriteLine($"Új hossz: (Jel.: )");
             int hossz = int.Parse(Console.ReadLine());
             //if (string.IsNullOrWhiteSpace(telefon))
             //    telefon = "";
@@ -176,6 +200,33 @@ namespace Fogadoora
             else
             {
                 Console.WriteLine("Sikertelen módosítás!");
+            }
+            Console.ReadLine();
+        }
+
+        static void ShowFog()
+        {
+            Console.Clear();
+            List<Fogadoorak> orak = new FogadooraController().GetFogList();
+            new FogadooraView().KapcsolatokKiir(orak);
+        }
+
+        static void DelFog()
+        {
+            Console.Clear();
+            //táblázat kiírása
+            List<Fogadoorak> orak = new FogadooraController().GetFogList();
+            new FogadooraView().KapcsolatokKiir(orak);
+            Console.WriteLine("Enterrel jelenlegi adat megtartása\n");
+            Console.Write("Adja meg a törlendő fogadóóra ID-jét: ");
+            int id = int.Parse(Console.ReadLine());
+            if (new FogadooraController().DelFog(id))
+            {
+                Console.WriteLine("Sikeres törlés!");
+            }
+            else
+            {
+                Console.WriteLine("Sikertelen törlés!");
             }
             Console.ReadLine();
         }
@@ -210,11 +261,47 @@ namespace Fogadoora
                 }
             }
         }
+
+        
         static void FiokBeall(string felh)
         {
-            Console.Clear();
-            List<Bejelentkezo> bejlist = new BejelentkezoController().GetBejList();
+                ////táblázat kiírása
+                //List<Conn> connections = new ConnController().GetConnList();
+                
 
+                //// Módosítandó adatok bekérése
+                //Console.WriteLine("Enterrel jelenlegi adat megtartása\n");
+
+                //Console.WriteLine($"Új név: (Jel.: {currNev})");
+                //string nev = Console.ReadLine();
+                //if (string.IsNullOrWhiteSpace(nev))
+                //    nev = currNev;
+
+                //Console.WriteLine($"Új cím: (Jel.: {currCim})");
+                //string cim = Console.ReadLine();
+                //if (string.IsNullOrWhiteSpace(cim))
+                //    cim = currCim;
+
+                //Console.WriteLine($"Új E-mail: (Jel.: {currEmail})");
+                //string email = Console.ReadLine();
+                //if (string.IsNullOrWhiteSpace(email))
+                //    email = currEmail;
+
+                //Console.WriteLine($"Új név: (Jel.: {currTelefon})");
+                //string telefon = Console.ReadLine();
+                //if (string.IsNullOrWhiteSpace(telefon))
+                //    telefon = currTelefon;
+
+
+                //if (new ConnController().UpdConn(id, nev, cim, email, telefon))
+                //{
+                //    Console.WriteLine("Sikeres módosítás!");
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Sikertelen módosítás!");
+                //}
+                //Console.ReadLine();
         }
 
         static void KinezetBeall(string felh)

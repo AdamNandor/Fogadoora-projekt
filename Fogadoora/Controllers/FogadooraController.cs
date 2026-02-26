@@ -46,16 +46,16 @@ namespace Fogadoora.Controllers
         /// </summary>
         /// <param name="Fog">Egy fogadóóra adatai egy listában</param>
         /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
-        public bool NewFog(Fogadoorak Fog)
+        public bool NewFog(string hely, DateTime kezd, int hossz)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
             con.Open();
             string insertSql = @"INSERT INTO fogadoora VALUES (@Id,@Hely,@Kezdet,@Hossz)";
             MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
             insertcmd.Parameters.AddWithValue("@Id", null);
-            insertcmd.Parameters.AddWithValue("@Hely", Fog.Hely);
-            insertcmd.Parameters.AddWithValue("@Kezdet", Fog.Kezdet);
-            insertcmd.Parameters.AddWithValue("@Hossz", Fog.Hossz);
+            insertcmd.Parameters.AddWithValue("@Hely", hely);
+            insertcmd.Parameters.AddWithValue("@Kezdet", kezd);
+            insertcmd.Parameters.AddWithValue("@Hossz", hossz);
 
 
             int sorok = insertcmd.ExecuteNonQuery();
