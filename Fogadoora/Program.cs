@@ -30,7 +30,8 @@ namespace Fogadoora
                         Regisztracio();
                         break;
                     case "2":
-                        Bejelentkezes();
+                        //Bejelentkezes();
+                        BejelentkezettMenu();
                         break;
                     case "3":
                         Console.WriteLine("Kilépés...");
@@ -95,12 +96,78 @@ namespace Fogadoora
                         // Fogadóóra törlése
                         break;
                     case "5":
-                        // Beállítások
+                        Beallitasok();
                         break;
                     case "6":
                         Console.WriteLine("Kilépés...");
                         b = false;
                         Console.ReadLine();
+                        return;
+                    default:
+                        Console.WriteLine("Érvénytelen menüpont. Kérjük, próbálja újra.");
+                        break;
+                }
+            }
+        }
+
+        static void Beallitasok()
+        {
+            bool b = true;
+            while (b)
+            {
+                Console.Clear();
+                Console.WriteLine("=== BEÁLLÍTÁSOK ===");
+                Console.WriteLine("1. Fiók beállítások");
+                Console.WriteLine("2. Kinézet változtatása");
+                Console.WriteLine("3. Vissza a főmenüre");
+                Console.Write("Válasszon egy menüpontot: ");
+                string valasztas = Console.ReadLine();
+                switch (valasztas)
+                {
+                    case "1":
+                        // Fiók beállítások
+                        break;
+                    case "2":
+                        KinezetBeall();
+                        break;
+                    case "3":
+                        BejelentkezettMenu();
+                        b = false;
+                        break;
+                    default:
+                        Console.WriteLine("Érvénytelen menüpont. Kérjük, próbálja újra.");
+                        break;
+                }
+            }
+        }
+        static void FiokBeall()
+        {
+
+        }
+
+        static void KinezetBeall()
+        {
+            bool b = true;
+            while (b)
+            {
+                Console.Clear();
+                Console.WriteLine("=== KINÉZET BEÁLLÍTÁS ===");
+                Console.WriteLine("1. Háttérszín módosítása");
+                Console.WriteLine("2. Betűszín módosítása");
+                Console.WriteLine("3. Vissza a beállításokhoz");
+                Console.Write("Válasszon egy menüpontot: ");
+                string valasztas = Console.ReadLine();
+                switch (valasztas)
+                {
+                    case "1":
+                        UIBeallitasok.HatterMod();
+                        break;
+                    case "2":
+                        UIBeallitasok.BetuszinMod();
+                        break;
+                    case "3":
+                        Beallitasok();
+                        b = false;
                         break;
                     default:
                         Console.WriteLine("Érvénytelen menüpont. Kérjük, próbálja újra.");

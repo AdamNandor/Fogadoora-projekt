@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UIBeallitasok.cs" />
     <Compile Include="Controllers\BejelentkezoController.cs" />
     <Compile Include="Controllers\FogadooraController.cs" />
     <Compile Include="Models\Bejelentkezo.cs" />
