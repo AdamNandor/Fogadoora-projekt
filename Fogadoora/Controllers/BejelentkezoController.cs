@@ -11,6 +11,10 @@ namespace Fogadoora.Controllers
 {
     internal class BejelentkezoController
     {
+        /// <summary>
+        /// lekéri az adatbázisból a bejelentkezők adatait, és egy listában visszaadja őket
+        /// </summary>
+        /// <returns>egy listát az összes bejelentkezőről és adataikról</returns>
         public List<Bejelentkezo> GetBejList()
         {
             MySqlConnection conn = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
@@ -35,6 +39,11 @@ namespace Fogadoora.Controllers
             }
         }
 
+        /// <summary>
+        /// kiírja a megadott új bejelentkezőt az adatbázisba, és visszaadja, hogy sikerült-e a művelet
+        /// </summary>
+        /// <param name="bejelentkezo"></param>
+        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
         public bool NewBej(string nev, string tel, string email)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
@@ -53,6 +62,14 @@ namespace Fogadoora.Controllers
             return valasz;
         }
 
+        /// <summary>
+        /// kiírja a megadott bejelentkező új adatait az adatbázisba, és visszaadja, hogy sikerült-e a művelet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nev"></param>
+        /// <param name="tel"></param>
+        /// <param name="email"></param>
+        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
         public bool UpdBej(int id, string nev, string tel, string email)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
@@ -72,6 +89,11 @@ namespace Fogadoora.Controllers
 
         }
 
+        /// <summary>
+        /// kitörli a megadott id-jű bejelentkezőt az adatbázisból, és visszaadja, hogy sikerült-e a művelet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
         public bool DelBej(int id)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
