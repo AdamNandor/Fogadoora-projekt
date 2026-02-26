@@ -13,6 +13,10 @@ namespace Fogadoora.Controllers
 {
     internal class FogadooraController
     {
+        /// <summary>
+        /// lekéri az adatbázisból a fogadóórák adatait, és egy listában visszaadja őket
+        /// </summary>
+        /// <returns>egy listát a fogadóórákról</returns>
         public List<Fogadoorak> GetFogList()
         {
             MySqlConnection conn = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
@@ -41,7 +45,7 @@ namespace Fogadoora.Controllers
         /// Kiírja a megadott új fogadóórát az adatbázisba, és visszaadja, hogy sikerült-e a művelet
         /// </summary>
         /// <param name="Fog">Egy fogadóóra adatai egy listában</param>
-        /// <returns>True/False hogy sikrült e vagy nem.</returns>
+        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
         public bool NewFog(Fogadoorak Fog)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
@@ -59,6 +63,14 @@ namespace Fogadoora.Controllers
             return valasz;
         }
 
+        /// <summary>
+        /// Kiírja a megadott fogadóóra új adatait az adatbázisba, és visszaadja, hogy sikerült-e a művelet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="hely"></param>
+        /// <param name="kezdet"></param>
+        /// <param name="hossz"></param>
+        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
         public bool UpdFog(int id, string hely, DateTime kezdet, int hossz)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
@@ -77,6 +89,11 @@ namespace Fogadoora.Controllers
 
         }
 
+        /// <summary>
+        /// Kitörli a megadott id-jú fogadóórát az adatbázisból, és visszaadja, hogy sikerült-e a művelet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
         public bool DelFog(int id)
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
