@@ -30,8 +30,7 @@ namespace Fogadoora
                         Regisztracio();
                         break;
                     case "2":
-                        //Bejelentkezes();
-                        BejelentkezettMenu();
+                        Bejelentkezes();
                         break;
                     case "3":
                         Console.WriteLine("Kilépés...");
@@ -51,8 +50,28 @@ namespace Fogadoora
             Console.WriteLine("=== REGISZTRÁCIÓ ===");
             Console.Write("Felhasználónév: ");
             string felhasznalonev = Console.ReadLine();
-            Console.Write("Jelszó: ");
-            string jelszo = Console.ReadLine();
+            Console.Write("Telefonszám: ");
+            string tel = Console.ReadLine();
+            Console.Write("E-mail: ");
+            string email = Console.ReadLine();
+            List<Bejelentkezo> bejlist = new BejelentkezoController().GetBejList();
+            if (bejlist.Any(x => x.Nev == felhasznalonev))
+            {
+                Console.WriteLine("Ez a felhasználónév már foglalt. Kérjük, válasszon másikat.");
+                Console.ReadLine();
+                return;
+            }
+            bool bejAdd = new BejelentkezoController().NewBej(felhasznalonev, tel, email);
+            if (bejAdd)
+            {
+                Console.WriteLine("Sikeres regisztráció!");
+                BejelentkezettMenu(felhasznalonev);
+            }
+            else
+            {
+                Console.WriteLine("Hiba történt a regisztráció során.");
+            }
+            Console.ReadLine();
         }
 
         static void Bejelentkezes()
@@ -61,18 +80,29 @@ namespace Fogadoora
             Console.WriteLine("=== BEJELENTKEZÉS ===");
             Console.Write("Felhasználónév: ");
             string felhasznalonev = Console.ReadLine();
-            Console.Write("Jelszó: ");
-            string jelszo = Console.ReadLine();
-            BejelentkezettMenu();
+            Console.Write("E-mail: ");
+            string email = Console.ReadLine();
+            List<Bejelentkezo> bejlist = new BejelentkezoController().GetBejList();
+            if (bejlist.Any(x => x.Nev == felhasznalonev && x.Email == email))
+            {
+                UIBeallitasok.WriteSuccess("Sikeres bejelentkezés!");
+                BejelentkezettMenu(felhasznalonev);
+            }
+            else
+            {
+                UIBeallitasok.WriteError("Hibás felhasználónév vagy e-mail. Kérjük, próbálja újra.");
+                Console.ReadLine();
+                return;
+            }
         }
 
-        static void BejelentkezettMenu()
+        static void BejelentkezettMenu(string felh)
         {
             bool b = true;
             while (b)
             {
                 Console.Clear();
-                Console.WriteLine("=== BEJELENTKEZETT MENÜ ===");
+                Console.WriteLine($"=== ÜDVÖZÖLJÜK {felh} ===");
                 Console.WriteLine("1. Fogadóóra hozzáadása");
                 Console.WriteLine("2. Fogadóóra szerkesztése");
                 Console.WriteLine("3. Fogadóórák megtekintése");
@@ -96,7 +126,7 @@ namespace Fogadoora
                         // Fogadóóra törlése
                         break;
                     case "5":
-                        Beallitasok();
+                        Beallitasok(felh);
                         break;
                     case "6":
                         Console.WriteLine("Kilépés...");
@@ -110,7 +140,7 @@ namespace Fogadoora
             }
         }
 
-        static void Beallitasok()
+        static void Beallitasok(string felh)
         {
             bool b = true;
             while (b)
@@ -125,13 +155,13 @@ namespace Fogadoora
                 switch (valasztas)
                 {
                     case "1":
-                        // Fiók beállítások
+                        FiokBeall(felh);
                         break;
                     case "2":
-                        KinezetBeall();
+                        KinezetBeall(felh);
                         break;
                     case "3":
-                        BejelentkezettMenu();
+                        BejelentkezettMenu(felh);
                         b = false;
                         break;
                     default:
@@ -140,12 +170,14 @@ namespace Fogadoora
                 }
             }
         }
-        static void FiokBeall()
+        static void FiokBeall(string felh)
         {
+            Console.Clear();
+            List<Bejelentkezo> bejlist = new BejelentkezoController().GetBejList();
 
         }
 
-        static void KinezetBeall()
+        static void KinezetBeall(string felh)
         {
             bool b = true;
             while (b)
@@ -166,7 +198,7 @@ namespace Fogadoora
                         UIBeallitasok.BetuszinMod();
                         break;
                     case "3":
-                        Beallitasok();
+                        Beallitasok(felh);
                         b = false;
                         break;
                     default:
