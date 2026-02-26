@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Fogadoora.Models;
 using Fogadoora.Views;
 using Fogadoora.Controllers;
+using MySql.Data.MySqlClient;
 
 namespace Fogadoora
 {
@@ -117,7 +118,7 @@ namespace Fogadoora
                         // Fogadóóra hozzáadása
                         break;
                     case "2":
-                        // Fogadóóra szerkesztése
+                        UpdFog();
                         break;
                     case "3":
                         // Fogadóóra megtekintése
@@ -138,6 +139,45 @@ namespace Fogadoora
                         break;
                 }
             }
+        }
+
+        static void UpdFog()
+        {
+            Console.Clear();
+            //táblázat kiírása
+            List<Fogadoorak> orak = new FogadooraController().GetFogList();
+            Console.WriteLine("Enterrel jelenlegi adat megtartása\n");
+
+            Console.Write("Adja meg a módosítandó fogadóóra ID-jét: ");
+            int id = int.Parse(Console.ReadLine());
+            
+
+
+            Console.WriteLine($"Új hely: (Jelenlegi: ");
+            string hely = Console.ReadLine();
+            //if (string.IsNullOrWhiteSpace(hely))
+            //    hely = "";
+
+            Console.WriteLine($"Új E-mail: (Jel.: )");
+            DateTime kezd = DateTime.Parse(Console.ReadLine());
+            //if (string.IsNullOrWhiteSpace(kezd))
+            //    kezd = "";
+
+            Console.WriteLine($"Új név: (Jel.: )");
+            int hossz = int.Parse(Console.ReadLine());
+            //if (string.IsNullOrWhiteSpace(telefon))
+            //    telefon = "";
+
+
+            if (new FogadooraController().UpdFog(id, hely, kezd, hossz))
+            {
+                Console.WriteLine("Sikeres módosítás!");
+            }
+            else
+            {
+                Console.WriteLine("Sikertelen módosítás!");
+            }
+            Console.ReadLine();
         }
 
         static void Beallitasok(string felh)
