@@ -14,14 +14,14 @@ namespace Fogadoora.Views
         public void KapcsolatokKiir(List<Fogadoorak> fogadoorak)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.WriteLine("╔══════╦═══════════════════════╦════════════════════════════════════════╦═════════════════════════════╗");
-            Console.WriteLine("║  ID  ║ Hely                  ║ Kezdet                                 ║ Hossz                       ║ ");
+            UIBeallitasok.WriteLineCentered("╔══════╦═══════════════════════╦════════════════════════════════════════╦═════════════════════════════╗");
+            UIBeallitasok.WriteLineCentered("║  ID  ║ Hely                  ║ Kezdet                                 ║ Hossz                       ║ ");
             foreach (var fog in fogadoorak)
             {
-                Console.WriteLine("╠══════╬═══════════════════════╬════════════════════════════════════════╬═════════════════════════════╣");
-                Console.WriteLine(ToRow(fog));
+                UIBeallitasok.WriteLineCentered("╠══════╬═══════════════════════╬════════════════════════════════════════╬═════════════════════════════╣");
+                UIBeallitasok.WriteLineCentered(ToRow(fog));
             }
-            Console.WriteLine("╚══════╩═══════════════════════╩════════════════════════════════════════╩═════════════════════════════╝");
+            UIBeallitasok.WriteLineCentered("╚══════╩═══════════════════════╩════════════════════════════════════════╩═════════════════════════════╝");
             Console.ReadLine();
         }
         private static string ToRow(Fogadoorak fog)

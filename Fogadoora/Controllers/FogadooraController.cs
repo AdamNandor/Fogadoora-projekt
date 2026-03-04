@@ -14,30 +14,38 @@ namespace Fogadoora.Controllers
     internal class FogadooraController
     {
         /// <summary>
-        /// lekéri az adatbázisból a fogadóórák adatait, és egy listában visszaadja őket
+        /// Lekéri az adatbázisból a fogadóórák adatait, és egy listában visszaadja őket
         /// </summary>
-        /// <returns>egy listát a fogadóórákról</returns>
+        /// <returns>Egy listát a fogadóórákról</returns>
         public List<Fogadoorak> GetFogList()
         {
-            MySqlConnection conn = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
-            conn.Open();
-            string comd = "SELECT * FROM fogadoora;";
-            MySqlCommand cmd = new MySqlCommand(comd, conn);
-            List<Fogadoorak> connections = new List<Fogadoorak>();
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                MySqlConnection conn = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
+                conn.Open();
+                string comd = "SELECT * FROM fogadoora;";
+                MySqlCommand cmd = new MySqlCommand(comd, conn);
+                List<Fogadoorak> connections = new List<Fogadoorak>();
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    connections.Add(new Fogadoorak(
-                        reader.GetInt32("id"),
-                        reader.GetString("hely"),
-                        reader.GetDateTime("kezdet"),
-                        reader.GetInt32("hossz")
-                    ));
-                }
+                    while (reader.Read())
+                    {
+                        connections.Add(new Fogadoorak(
+                            reader.GetInt32("id"),
+                            reader.GetString("hely"),
+                            reader.GetDateTime("kezdet"),
+                            reader.GetInt32("hossz")
+                        ));
+                    }
 
-                conn.Close();
-                return connections;
+                    conn.Close();
+                    return connections;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
@@ -45,23 +53,31 @@ namespace Fogadoora.Controllers
         /// Kiírja a megadott új fogadóórát az adatbázisba, és visszaadja, hogy sikerült-e a művelet
         /// </summary>
         /// <param name="Fog">Egy fogadóóra adatai egy listában</param>
-        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
+        /// <returns>True/False hogy sikerült-e a művelet vagy sem</returns>
         public bool NewFog(string hely, DateTime kezd, int hossz)
         {
-            MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
-            con.Open();
-            string insertSql = @"INSERT INTO fogadoora VALUES (@Id,@Hely,@Kezdet,@Hossz)";
-            MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
-            insertcmd.Parameters.AddWithValue("@Id", null);
-            insertcmd.Parameters.AddWithValue("@Hely", hely);
-            insertcmd.Parameters.AddWithValue("@Kezdet", kezd);
-            insertcmd.Parameters.AddWithValue("@Hossz", hossz);
+            try
+            {
+                MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
+                con.Open();
+                string insertSql = @"INSERT INTO fogadoora VALUES (@Id,@Hely,@Kezdet,@Hossz)";
+                MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
+                insertcmd.Parameters.AddWithValue("@Id", null);
+                insertcmd.Parameters.AddWithValue("@Hely", hely);
+                insertcmd.Parameters.AddWithValue("@Kezdet", kezd);
+                insertcmd.Parameters.AddWithValue("@Hossz", hossz);
 
 
-            int sorok = insertcmd.ExecuteNonQuery();
-            bool valasz = sorok > 0 ? true : false;
-            return valasz;
-        }
+                int sorok = insertcmd.ExecuteNonQuery();
+                bool valasz = sorok > 0 ? true : false;
+                return valasz;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            }
 
         /// <summary>
         /// Kiírja a megadott fogadóóra új adatait az adatbázisba, és visszaadja, hogy sikerült-e a művelet
@@ -70,43 +86,55 @@ namespace Fogadoora.Controllers
         /// <param name="hely"></param>
         /// <param name="kezdet"></param>
         /// <param name="hossz"></param>
-        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
+        /// <returns>True/False hogy sikerült-e a művelet vagy sem</returns>
         public bool UpdFog(int id, string hely, DateTime kezdet, int hossz)
         {
-            MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
-            con.Open();
-            string insertSql = @"UPDATE fogadoora SET `Hely`= @Hely,`Kezdet`= @Kezdet,`Hossz`= @Hossz WHERE Id = @Id;";
-            MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
-            insertcmd.Parameters.AddWithValue("@Id", id);
-            insertcmd.Parameters.AddWithValue("@Hely", hely);
-            insertcmd.Parameters.AddWithValue("@Kezdet", kezdet);
-            insertcmd.Parameters.AddWithValue("@Hossz", hossz);
+            try
+            {
+                MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
+                con.Open();
+                string insertSql = @"UPDATE fogadoora SET `Hely`= @Hely,`Kezdet`= @Kezdet,`Hossz`= @Hossz WHERE Id = @Id;";
+                MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
+                insertcmd.Parameters.AddWithValue("@Id", id);
+                insertcmd.Parameters.AddWithValue("@Hely", hely);
+                insertcmd.Parameters.AddWithValue("@Kezdet", kezdet);
+                insertcmd.Parameters.AddWithValue("@Hossz", hossz);
 
 
-            int sorok = insertcmd.ExecuteNonQuery();
-            bool valasz = sorok > 0 ? true : false;
-            return valasz;
-
-        }
+                int sorok = insertcmd.ExecuteNonQuery();
+                bool valasz = sorok > 0 ? true : false;
+                return valasz;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            }
 
         /// <summary>
-        /// Kitörli a megadott id-jú fogadóórát az adatbázisból, és visszaadja, hogy sikerült-e a művelet
+        /// Kitörli a megadott id-jű fogadóórát az adatbázisból, és visszaadja, hogy sikerült-e a művelet
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>True/False hogy sikrült e a művelet vagy sem</returns>
+        /// <returns>True/False hogy sikerült-e a művelet vagy sem</returns>
         public bool DelFog(int id)
         {
-            MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
-            con.Open();
-            string insertSql = @"DELETE FROM fogadoora WHERE Id = @Id";
-            MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
-            insertcmd.Parameters.AddWithValue("@Id", id);
-
-
-            int sorok = insertcmd.ExecuteNonQuery();
-            bool valasz = sorok > 0 ? true : false;
-            return valasz;
-
+            try
+            {
+                MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=fogadoora;");
+                con.Open();
+                string insertSql = @"DELETE FROM fogadoora WHERE Id = @Id";
+                MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
+                insertcmd.Parameters.AddWithValue("@Id", id);
+                int sorok = insertcmd.ExecuteNonQuery();
+                bool valasz = sorok > 0 ? true : false;
+                return valasz;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }
